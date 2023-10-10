@@ -13,9 +13,10 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long companyId;
+    private Long companyId;
 
     @NotNull
+    @Column(unique = true)
     private String companyName;
 
     @NotNull

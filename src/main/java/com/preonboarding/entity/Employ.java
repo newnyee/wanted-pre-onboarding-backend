@@ -1,32 +1,34 @@
 package com.preonboarding.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+@ToString
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class Recruit {
+public class Employ {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long recruitId;
+    private Long employId;
 
     @NotNull
-    private long companyId;
+    private Long companyId;
 
     @NotNull
-    private String recruitPosition;
+    private String employPosition;
 
     @NotNull
-    private long recruitMoneyGift;
+    private Long employMoneyGift;
 
     @NotNull
-    private String recruitContent;
+    private String employContent;
 
     @NotNull
-    private String recruitSkill;
+    private String employSkill;
 }

@@ -13,10 +13,10 @@ public class Apply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long applyId;
+    private Long applyId;
 
     @NotNull
-    private long recruitId;
+    private Long employId;
 
     @NotNull
     private String userId;
