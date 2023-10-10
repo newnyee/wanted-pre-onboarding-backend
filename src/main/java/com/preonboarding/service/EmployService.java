@@ -10,4 +10,6 @@ public interface EmployService {
     ResponseSavedEmployDto employInsert(RequestEmployRegistrationDto requestEmployRegistrationDto);
 
     ResponseUpdateEmployDto employUpdate(RequestEmployUpdateDto requestEmployUpdateDto);
+
+    void delete(Long employId);
 }

@@ -59,4 +59,9 @@ public class EmployServiceImpl implements EmployService {
                 .employSkill(resultUpdate.getEmploySkill())
                 .build();
     }
+
+    @Override
+    public void delete(Long employId) {
+        employRepository.deleteById(employId);
+    }
 }
