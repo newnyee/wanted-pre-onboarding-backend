@@ -1,6 +1,6 @@
 package com.preonboarding.repository;
 
-import com.preonboarding.dto.EmployUpdateDto;
+import com.preonboarding.dto.RequestEmployUpdateDto;
 import com.preonboarding.entity.Employ;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -47,10 +47,10 @@ class EmployRepositoryTest {
                 .employMoneyGift(1000000L)
                 .employSkill("Python")
                 .build();
-        Long foundEmployId = employRepository.save(employ).getEmployId();
+        Long findEmploy = employRepository.save(employ).getEmployId();
 
-        EmployUpdateDto updateDto = EmployUpdateDto.builder()
-                .employId(foundEmployId)
+        RequestEmployUpdateDto updateDto = RequestEmployUpdateDto.builder()
+                .employId(findEmploy)
                 .employPosition("백엔드 주니어 개발자")
                 .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
                 .employMoneyGift(1500000L) // 변경값

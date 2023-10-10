@@ -7,9 +7,11 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployUpdateDto {
+public class RequestEmployUpdateDto {
 
     private Long employId;
+
+    private Long companyId;
 
     private String employPosition;
 
