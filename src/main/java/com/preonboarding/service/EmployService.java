@@ -13,4 +13,6 @@ public interface EmployService {
     void delete(Long employId);
 
     List<ResponseEmployInfoDto> findEmploys();
+
+    ResponseEmployDetailsDto detailsEmploy(Long employId);
 }

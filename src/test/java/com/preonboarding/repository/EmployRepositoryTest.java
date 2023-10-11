@@ -24,7 +24,6 @@ class EmployRepositoryTest {
     void save() {
 
         Employ employ = Employ.builder()
-                .companyId(1L)
                 .employPosition("백엔드 주니어 개발자")
                 .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
                 .employMoneyGift(1000000L)
@@ -41,7 +40,6 @@ class EmployRepositoryTest {
     void updateEmploy() {
 
         Employ employ = Employ.builder()
-                .companyId(1L)
                 .employPosition("백엔드 주니어 개발자")
                 .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
                 .employMoneyGift(1000000L)
@@ -74,7 +72,6 @@ class EmployRepositoryTest {
     void delete() {
 
         Employ employ = Employ.builder()
-                .companyId(1L)
                 .employPosition("백엔드 주니어 개발자")
                 .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
                 .employMoneyGift(1000000L)

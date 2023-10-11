@@ -4,9 +4,11 @@ import com.preonboarding.entity.Employ;
 import com.preonboarding.repository.EmployRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -80,5 +82,22 @@ public class EmployServiceImpl implements EmployService {
             list.add(employInfo);
         }
         return list;
+    }
+
+    @Transactional
+    @Override
+    public ResponseEmployDetailsDto detailsEmploy(Long employId) {
+
+        Employ employ = employRepository.findById(employId).get();
+        return ResponseEmployDetailsDto.builder()
+                .employId(employ.getEmployId())
+                .companyName(employ.getCompany().getCompanyName())
+                .companyCountry(employ.getCompany().getCompanyCountry())
+                .companyArea(employ.getCompany().getCompanyArea())
+                .employPosition(employ.getEmployPosition())
+                .employMoneyGift(employ.getEmployMoneyGift())
+                .employSkill(employ.getEmploySkill())
+                .employContent(employ.getEmployContent())
+                .build();
     }
 }
