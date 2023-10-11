@@ -63,6 +63,11 @@ public class EmployController {
         return ResponseEntity.status(HttpStatus.OK).body(employList);
     }
 
+    /**
+     * 채용공고 상세 조회 API
+     * @param employId 상세 조회할 채용공고 id
+     * @return 조회된 채용공고 정보
+     */
     @GetMapping("/{employId}")
     public ResponseEntity detailsEmploy(@PathVariable Long employId) {
         return ResponseEntity.status(HttpStatus.OK).body(employService.detailsEmploy(employId));
