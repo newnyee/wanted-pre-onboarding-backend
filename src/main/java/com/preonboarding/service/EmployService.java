@@ -1,9 +1,8 @@
 package com.preonboarding.service;
 
-import com.preonboarding.dto.RequestEmployRegistrationDto;
-import com.preonboarding.dto.RequestEmployUpdateDto;
-import com.preonboarding.dto.ResponseSavedEmployDto;
-import com.preonboarding.dto.ResponseUpdateEmployDto;
+import com.preonboarding.dto.*;
+
+import java.util.List;
 
 public interface EmployService {
 
@@ -12,4 +11,6 @@ public interface EmployService {
     ResponseUpdateEmployDto employUpdate(RequestEmployUpdateDto requestEmployUpdateDto);
 
     void delete(Long employId);
+
+    List<ResponseEmployInfoDto> findEmploys();
 }

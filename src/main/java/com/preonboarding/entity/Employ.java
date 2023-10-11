@@ -4,6 +4,10 @@ import lombok.*;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ToString
 @Entity
@@ -18,9 +22,6 @@ public class Employ {
     private Long employId;
 
     @NotNull
-    private Long companyId;
-
-    @NotNull
     private String employPosition;
 
     @NotNull
@@ -31,4 +32,11 @@ public class Employ {
 
     @NotNull
     private String employSkill;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @OneToMany(mappedBy = "employ")
+    private List<Apply> applies = new ArrayList<>();
 }

@@ -1,14 +1,13 @@
 package com.preonboarding.controller;
-import com.preonboarding.dto.RequestEmployUpdateDto;
-import com.preonboarding.dto.RequestEmployRegistrationDto;
-import com.preonboarding.dto.ResponseSavedEmployDto;
-import com.preonboarding.dto.ResponseUpdateEmployDto;
+import com.preonboarding.dto.*;
 import com.preonboarding.service.EmployService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
@@ -20,7 +19,6 @@ public class EmployController {
 
     /**
      * 채용공고 등록 API
-     *
      * @param requestEmployRegistrationDto 등록할 채용공고 정보
      * @return 등록된 채용공고 정보
      */
@@ -30,10 +28,8 @@ public class EmployController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseSavedEmployDto);
     }
 
-
     /**
      * 채용공고 수정 API
-     *
      * @param requestEmployUpdateDto 수정할 채용공고 정보
      * @return 수정된 채용 공고 정보
      */
@@ -52,5 +48,15 @@ public class EmployController {
     public ResponseEntity delete(@PathVariable Long employId) {
         employService.delete(employId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    /**
+     * 채용공고 리스트 조회 API
+     * @return 채용공고 리스트 정보 반환
+     */
+    @GetMapping
+    public ResponseEntity findEmployList() {
+        List<ResponseEmployInfoDto> employList = employService.findEmploys();
+        return ResponseEntity.status(HttpStatus.OK).body(employList);
     }
 }

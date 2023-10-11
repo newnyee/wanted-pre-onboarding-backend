@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -25,4 +28,7 @@ public class User {
 
     @NotNull
     private String userPosition;
+
+    @OneToMany(mappedBy = "user")
+    private List<Apply> applies = new ArrayList<>();
 }

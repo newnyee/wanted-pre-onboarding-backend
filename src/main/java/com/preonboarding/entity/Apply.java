@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 @Getter
@@ -15,9 +15,11 @@ public class Apply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applyId;
 
-    @NotNull
-    private Long employId;
+    @ManyToOne
+    @JoinColumn(name = "employ_id")
+    Employ employ;
 
-    @NotNull
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
 }

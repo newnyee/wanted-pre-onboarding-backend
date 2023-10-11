@@ -1,13 +1,12 @@
 package com.preonboarding.service;
-import com.preonboarding.dto.RequestEmployRegistrationDto;
-import com.preonboarding.dto.RequestEmployUpdateDto;
-import com.preonboarding.dto.ResponseSavedEmployDto;
-import com.preonboarding.dto.ResponseUpdateEmployDto;
+import com.preonboarding.dto.*;
 import com.preonboarding.entity.Employ;
 import com.preonboarding.repository.EmployRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ public class EmployServiceImpl implements EmployService {
     public ResponseSavedEmployDto employInsert(RequestEmployRegistrationDto dto) {
 
         Employ newEmploy = Employ.builder()
-                .companyId(dto.getCompanyId())
                 .employSkill(dto.getEmploySkill())
                 .employPosition(dto.getEmployPosition())
                 .employMoneyGift(dto.getEmployMoneyGift())
@@ -30,7 +28,6 @@ public class EmployServiceImpl implements EmployService {
 
         return ResponseSavedEmployDto.builder()
                 .employId(newEmploy.getEmployId())
-                .companyId(newEmploy.getCompanyId())
                 .employSkill(newEmploy.getEmploySkill())
                 .employPosition(newEmploy.getEmployPosition())
                 .employMoneyGift(newEmploy.getEmployMoneyGift())
@@ -43,7 +40,6 @@ public class EmployServiceImpl implements EmployService {
 
         Employ updateEmploy = Employ.builder()
                 .employId(requestEmployUpdateDto.getEmployId())
-                .companyId(requestEmployUpdateDto.getCompanyId())
                 .employPosition(requestEmployUpdateDto.getEmployPosition())
                 .employMoneyGift(requestEmployUpdateDto.getEmployMoneyGift())
                 .employContent(requestEmployUpdateDto.getEmployContent())
@@ -63,5 +59,26 @@ public class EmployServiceImpl implements EmployService {
     @Override
     public void delete(Long employId) {
         employRepository.deleteById(employId);
+    }
+
+    @Override
+    public List<ResponseEmployInfoDto> findEmploys() {
+
+        List<Employ> employList = employRepository.findAll();
+
+        List<ResponseEmployInfoDto> list = new ArrayList<>();
+        for (Employ employ : employList) {
+            ResponseEmployInfoDto employInfo = ResponseEmployInfoDto.builder()
+                    .employId(employ.getEmployId())
+                    .companyName(employ.getCompany().getCompanyName())
+                    .companyCountry(employ.getCompany().getCompanyCountry())
+                    .companyArea(employ.getCompany().getCompanyArea())
+                    .employPosition(employ.getEmployPosition())
+                    .employMoneyGift(employ.getEmployMoneyGift())
+                    .employSkill(employ.getEmploySkill())
+                    .build();
+            list.add(employInfo);
+        }
+        return list;
     }
 }
