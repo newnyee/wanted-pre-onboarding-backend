@@ -10,7 +10,7 @@ public class CommonResponseDto {
 
     private String message = "success";
 
-    private Object object;
+    private Object data;
 
 
     public CommonResponseDto(HttpStatus httpStatus) {
@@ -21,7 +21,7 @@ public class CommonResponseDto {
     public CommonResponseDto(HttpStatus httpStatus, Object object) {
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.status = httpStatus.value();
-        this.object = object;
+        this.data = object;
     }
 
     public CommonResponseDto(HttpStatus httpStatus, String message) {
@@ -34,7 +34,7 @@ public class CommonResponseDto {
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.status = httpStatus.value();
         this.message = message;
-        this.object = object;
+        this.data = object;
     }
 }
 
