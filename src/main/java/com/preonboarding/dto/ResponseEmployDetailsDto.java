@@ -19,5 +19,5 @@ public class ResponseEmployDetailsDto {
     private Long employMoneyGift;
     private String employSkill;
     private String employContent;
-//    private List<Long> otherEmployList;
+    private List<Long> otherEmployList;
 }
