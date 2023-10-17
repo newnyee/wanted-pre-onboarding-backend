@@ -39,7 +39,7 @@ public class EmployController {
      * @return 수정된 채용 공고 정보
      */
     @PutMapping
-    public ResponseEntity<CommonResponseDto> update(@RequestBody RequestEmployUpdateDto requestEmployUpdateDto) {
+    public ResponseEntity<CommonResponseDto> update(@Validated @RequestBody RequestEmployUpdateDto requestEmployUpdateDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new CommonResponseDto(HttpStatus.CREATED, employService.employUpdate(requestEmployUpdateDto))
         );
