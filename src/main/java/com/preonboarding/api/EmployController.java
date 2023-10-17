@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Slf4j
 @AllArgsConstructor
 @RestController
@@ -23,7 +21,7 @@ public class EmployController {
      * 채용공고 등록 API
      *
      * @param requestEmployRegistrationDto 등록할 채용공고 정보
-     * @return 등록된 채용공고 정보
+     * @return 등록 완료 상태코드 반환
      */
     @PostMapping
     public ResponseEntity<CommonResponseDto> signUp(@Validated @RequestBody RequestEmployRegistrationDto requestEmployRegistrationDto) {
