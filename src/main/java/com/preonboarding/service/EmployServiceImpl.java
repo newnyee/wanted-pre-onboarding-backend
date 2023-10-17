@@ -1,8 +1,14 @@
 package com.preonboarding.service;
 import com.preonboarding.dto.*;
+import com.preonboarding.entity.Company;
 import com.preonboarding.entity.Employ;
+import com.preonboarding.exception.EmploySignUpFailException;
+import com.preonboarding.exception.NotFoundCompanyException;
+import com.preonboarding.repository.CompanyRepository;
 import com.preonboarding.repository.EmployRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,31 +16,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class EmployServiceImpl implements EmployService {
 
     private final EmployRepository employRepository;
+    private final CompanyRepository companyRepository;
 
     @Override
-    public ResponseSavedEmployDto employInsert(RequestEmployRegistrationDto dto) {
+    public void employInsert(RequestEmployRegistrationDto dto) {
+
+        Optional<Company> findCompany = companyRepository.findById(dto.getCompanyId());
+
+        if (findCompany.isEmpty()) {
+            throw new NotFoundCompanyException("해당 회사를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST);
+        }
 
         Employ newEmploy = Employ.builder()
+                .company(findCompany.get())
                 .employSkill(dto.getEmploySkill())
                 .employPosition(dto.getEmployPosition())
                 .employMoneyGift(dto.getEmployMoneyGift())
                 .employContent(dto.getEmployContent())
                 .build();
 
-        Employ savedEmploy = employRepository.save(newEmploy);
-
-        return ResponseSavedEmployDto.builder()
-                .employId(newEmploy.getEmployId())
-                .employSkill(newEmploy.getEmploySkill())
-                .employPosition(newEmploy.getEmployPosition())
-                .employMoneyGift(newEmploy.getEmployMoneyGift())
-                .employContent(newEmploy.getEmployContent())
-                .build();
+        try {
+            employRepository.save(newEmploy);
+        } catch (Exception e) {
+            log.error("[EmployService.employInsert] ex", e);
+            throw new EmploySignUpFailException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
