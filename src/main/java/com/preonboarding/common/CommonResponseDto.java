@@ -1,8 +1,10 @@
 package com.preonboarding.common;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import java.sql.Timestamp;
 
+@Getter
 public class CommonResponseDto {
     private Timestamp timestamp;
 
