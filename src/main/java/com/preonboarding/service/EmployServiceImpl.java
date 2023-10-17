@@ -50,11 +50,7 @@ public class EmployServiceImpl implements EmployService {
     public ResponseUpdateEmployDto employUpdate(RequestEmployUpdateDto dto) {
 
         Company findCompany = companyService.findById(dto.getCompanyId());
-
-        Optional<Employ> findEmploy = employRepository.findByEmployIdAndCompany(dto.getEmployId(), findCompany);
-        if (findEmploy.isEmpty()) {
-            throw new NotFoundEmployException("채용공고 ID를 확인해주세요.", HttpStatus.BAD_REQUEST);
-        }
+        findByEmployIdAndCompany(dto.getEmployId(), findCompany);
 
         Employ updateEmploy = Employ.builder()
                 .company(findCompany)
@@ -76,8 +72,17 @@ public class EmployServiceImpl implements EmployService {
     }
 
     @Override
-    public void delete(Long employId) {
-        employRepository.deleteById(employId);
+    public void delete(RequestDeleteEmployDto dto) {
+
+        Company findCompany = companyService.findById(dto.getCompanyId());
+        findByEmployIdAndCompany(dto.getEmployId(), findCompany);
+
+        try {
+            employRepository.deleteById(dto.getEmployId());
+        } catch (Exception e) {
+            log.error("[EmployService.employInsert] ex", e);
+            throw new FailToDeleteEmployException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -115,5 +120,13 @@ public class EmployServiceImpl implements EmployService {
                 .employSkill(employ.getEmploySkill())
                 .employContent(employ.getEmployContent())
                 .build();
+    }
+
+    private Employ findByEmployIdAndCompany(Long id, Company company) {
+        Optional<Employ> findEmploy = employRepository.findByEmployIdAndCompany(id, company);
+        if (findEmploy.isEmpty()) {
+            throw new NotFoundEmployException("채용공고 ID를 확인해주세요.", HttpStatus.BAD_REQUEST);
+        }
+        return findEmploy.get();
     }
 }

@@ -10,7 +10,7 @@ public interface EmployService {
 
     ResponseUpdateEmployDto employUpdate(RequestEmployUpdateDto requestEmployUpdateDto);
 
-    void delete(Long employId);
+    void delete(RequestDeleteEmployDto requestDeleteEmployDto);
 
     List<ResponseEmployInfoDto> findEmploys();
 
