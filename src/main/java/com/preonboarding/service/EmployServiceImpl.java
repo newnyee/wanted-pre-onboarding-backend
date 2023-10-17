@@ -109,24 +109,34 @@ public class EmployServiceImpl implements EmployService {
     @Override
     public ResponseEmployDetailsDto detailsEmploy(Long employId) {
 
-        Employ employ = employRepository.findById(employId).get();
+        Employ findEmploy = employRepository.findById(employId).orElseThrow(
+                () -> new NotFoundEmployException("채용공고 ID를 확인해주세요.", HttpStatus.BAD_REQUEST)
+        );
+        Company findCompany = companyService.findById(findEmploy.getCompany().getCompanyId());
+
+        List<Employ> employs = employRepository.findByCompanyAndEmployIdNot(findCompany, employId);
+
+        List<Long> employIds = new ArrayList<>();
+        for (Employ employ : employs) {
+            employIds.add(employ.getEmployId());
+        }
+
         return ResponseEmployDetailsDto.builder()
-                .employId(employ.getEmployId())
-                .companyName(employ.getCompany().getCompanyName())
-                .companyCountry(employ.getCompany().getCompanyCountry())
-                .companyArea(employ.getCompany().getCompanyArea())
-                .employPosition(employ.getEmployPosition())
-                .employMoneyGift(employ.getEmployMoneyGift())
-                .employSkill(employ.getEmploySkill())
-                .employContent(employ.getEmployContent())
+                .employId(findEmploy.getEmployId())
+                .companyName(findEmploy.getCompany().getCompanyName())
+                .companyCountry(findEmploy.getCompany().getCompanyCountry())
+                .companyArea(findEmploy.getCompany().getCompanyArea())
+                .employPosition(findEmploy.getEmployPosition())
+                .employMoneyGift(findEmploy.getEmployMoneyGift())
+                .employSkill(findEmploy.getEmploySkill())
+                .employContent(findEmploy.getEmployContent())
+                .otherEmployList(employIds)
                 .build();
     }
 
     private Employ findByEmployIdAndCompany(Long id, Company company) {
-        Optional<Employ> findEmploy = employRepository.findByEmployIdAndCompany(id, company);
-        if (findEmploy.isEmpty()) {
-            throw new NotFoundEmployException("채용공고 ID를 확인해주세요.", HttpStatus.BAD_REQUEST);
-        }
-        return findEmploy.get();
+        return employRepository.findByEmployIdAndCompany(id, company).orElseThrow(
+                () -> new NotFoundEmployException("채용공고 ID를 확인해주세요.", HttpStatus.BAD_REQUEST)
+        );
     }
 }
