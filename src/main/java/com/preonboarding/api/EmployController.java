@@ -64,8 +64,7 @@ public class EmployController {
      */
     @GetMapping
     public ResponseEntity<CommonResponseDto> findEmployList() {
-        List<ResponseEmployInfoDto> employList = employService.findEmploys();
-        return ResponseEntity.ok(new CommonResponseDto(HttpStatus.OK, employList));
+        return ResponseEntity.ok(new CommonResponseDto(HttpStatus.OK, employService.findEmploys()));
     }
 
     /**
