@@ -1,7 +1,9 @@
 package com.preonboarding.repository;
 
 import com.preonboarding.dto.RequestEmployUpdateDto;
+import com.preonboarding.entity.Company;
 import com.preonboarding.entity.Employ;
+import com.preonboarding.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,16 @@ class EmployRepositoryTest {
     @Autowired
     EmployRepository employRepository;
 
+    @Autowired
+    CompanyService companyService;
+
     @Test
     void save() {
 
+        Company findCompany = companyService.findById(1L);
+
         Employ employ = Employ.builder()
+                .company(findCompany)
                 .employPosition("백엔드 주니어 개발자")
                 .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
                 .employMoneyGift(1000000L)
@@ -39,28 +47,25 @@ class EmployRepositoryTest {
     @Test
     void updateEmploy() {
 
+        Company findCompany = companyService.findById(1L);
+
         Employ employ = Employ.builder()
+                .company(findCompany)
                 .employPosition("백엔드 주니어 개발자")
                 .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
                 .employMoneyGift(1000000L)
                 .employSkill("Python")
                 .build();
-        Long findEmploy = employRepository.save(employ).getEmployId();
 
-        RequestEmployUpdateDto updateDto = RequestEmployUpdateDto.builder()
-                .employId(findEmploy)
-                .employPosition("백엔드 주니어 개발자")
-                .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
-                .employMoneyGift(1500000L) // 변경값
-                .employSkill("Python")
-                .build();
+        Long saveEmployId = employRepository.save(employ).getEmployId();
 
         Employ updateEmploy = Employ.builder()
-                .employId(updateDto.getEmployId())
-                .employPosition(updateDto.getEmployPosition())
-                .employContent(updateDto.getEmployContent())
-                .employMoneyGift(updateDto.getEmployMoneyGift())
-                .employSkill(updateDto.getEmploySkill())
+                .company(findCompany)
+                .employId(saveEmployId)
+                .employPosition("백엔드 주니어 개발자")
+                .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
+                .employMoneyGift(1500000L)
+                .employSkill("Python")
                 .build();
 
         Employ save = employRepository.save(updateEmploy);
@@ -71,7 +76,10 @@ class EmployRepositoryTest {
     @Test
     void delete() {
 
+        Company findCompany = companyService.findById(1L);
+
         Employ employ = Employ.builder()
+                .company(findCompany)
                 .employPosition("백엔드 주니어 개발자")
                 .employContent("원티드랩에서 백엔드 주니어 개발자를 채용합니다. 자격요건은..")
                 .employMoneyGift(1000000L)
