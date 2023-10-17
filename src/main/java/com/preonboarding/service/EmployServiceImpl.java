@@ -3,8 +3,8 @@ import com.preonboarding.dto.*;
 import com.preonboarding.entity.Company;
 import com.preonboarding.entity.Employ;
 import com.preonboarding.exception.EmploySignUpFailException;
-import com.preonboarding.exception.NotFoundCompanyException;
-import com.preonboarding.repository.CompanyRepository;
+import com.preonboarding.exception.FailToDeleteEmployException;
+import com.preonboarding.exception.NotFoundEmployException;
 import com.preonboarding.repository.EmployRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,19 +23,15 @@ import java.util.Optional;
 public class EmployServiceImpl implements EmployService {
 
     private final EmployRepository employRepository;
-    private final CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     @Override
     public void employInsert(RequestEmployRegistrationDto dto) {
 
-        Optional<Company> findCompany = companyRepository.findById(dto.getCompanyId());
-
-        if (findCompany.isEmpty()) {
-            throw new NotFoundCompanyException("해당 회사를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST);
-        }
+        Company findCompany = companyService.findById(dto.getCompanyId());
 
         Employ newEmploy = Employ.builder()
-                .company(findCompany.get())
+                .company(findCompany)
                 .employSkill(dto.getEmploySkill())
                 .employPosition(dto.getEmployPosition())
                 .employMoneyGift(dto.getEmployMoneyGift())
@@ -51,14 +47,22 @@ public class EmployServiceImpl implements EmployService {
     }
 
     @Override
-    public ResponseUpdateEmployDto employUpdate(RequestEmployUpdateDto requestEmployUpdateDto) {
+    public ResponseUpdateEmployDto employUpdate(RequestEmployUpdateDto dto) {
+
+        Company findCompany = companyService.findById(dto.getCompanyId());
+
+        Optional<Employ> findEmploy = employRepository.findByEmployIdAndCompany(dto.getEmployId(), findCompany);
+        if (findEmploy.isEmpty()) {
+            throw new NotFoundEmployException("채용공고 ID를 확인해주세요.", HttpStatus.BAD_REQUEST);
+        }
 
         Employ updateEmploy = Employ.builder()
-                .employId(requestEmployUpdateDto.getEmployId())
-                .employPosition(requestEmployUpdateDto.getEmployPosition())
-                .employMoneyGift(requestEmployUpdateDto.getEmployMoneyGift())
-                .employContent(requestEmployUpdateDto.getEmployContent())
-                .employSkill(requestEmployUpdateDto.getEmploySkill())
+                .company(findCompany)
+                .employId(dto.getEmployId())
+                .employPosition(dto.getEmployPosition())
+                .employMoneyGift(dto.getEmployMoneyGift())
+                .employContent(dto.getEmployContent())
+                .employSkill(dto.getEmploySkill())
                 .build();
 
         Employ resultUpdate = employRepository.save(updateEmploy);
@@ -97,7 +101,6 @@ public class EmployServiceImpl implements EmployService {
         return list;
     }
 
-    @Transactional
     @Override
     public ResponseEmployDetailsDto detailsEmploy(Long employId) {
 
