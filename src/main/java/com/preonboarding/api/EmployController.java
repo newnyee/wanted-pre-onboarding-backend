@@ -48,13 +48,13 @@ public class EmployController {
     /**
      * 채용공고 삭제 API
      *
-     * @param employId 삭제할 채용공고 ID
+     * @param requestDeleteEmployDto 삭제할 채용공고 정보
      * @return 삭제 완료 상태코드 반환
      */
-    @DeleteMapping("/{employId}")
-    public ResponseEntity<CommonResponseDto> delete(@PathVariable Long employId) {
-        employService.delete(employId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new CommonResponseDto(HttpStatus.NO_CONTENT));
+    @DeleteMapping
+    public ResponseEntity delete(@Validated @RequestBody RequestDeleteEmployDto requestDeleteEmployDto) {
+        employService.delete(requestDeleteEmployDto);
+        return ResponseEntity.noContent().build();
     }
 
     /**
