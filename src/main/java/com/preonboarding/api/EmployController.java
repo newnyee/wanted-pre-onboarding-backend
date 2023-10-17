@@ -2,11 +2,11 @@ package com.preonboarding.api;
 import com.preonboarding.common.CommonResponseDto;
 import com.preonboarding.dto.*;
 import com.preonboarding.service.EmployService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class EmployController {
      * @return 등록된 채용공고 정보
      */
     @PostMapping
-    public ResponseEntity signUp(@Valid @RequestBody RequestEmployRegistrationDto requestEmployRegistrationDto) {
+    public ResponseEntity<CommonResponseDto> signUp(@Validated @RequestBody RequestEmployRegistrationDto requestEmployRegistrationDto) {
         log.debug("requestEmployRegistrationDto = {}", requestEmployRegistrationDto);
         employService.employInsert(requestEmployRegistrationDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new CommonResponseDto(HttpStatus.CREATED));
@@ -39,7 +39,7 @@ public class EmployController {
      * @return 수정된 채용 공고 정보
      */
     @PutMapping
-    public ResponseEntity update(@RequestBody RequestEmployUpdateDto requestEmployUpdateDto) {
+    public ResponseEntity<CommonResponseDto> update(@RequestBody RequestEmployUpdateDto requestEmployUpdateDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new CommonResponseDto(HttpStatus.CREATED, employService.employUpdate(requestEmployUpdateDto))
         );
@@ -52,7 +52,7 @@ public class EmployController {
      * @return 삭제 완료 상태코드 반환
      */
     @DeleteMapping("/{employId}")
-    public ResponseEntity delete(@PathVariable Long employId) {
+    public ResponseEntity<CommonResponseDto> delete(@PathVariable Long employId) {
         employService.delete(employId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new CommonResponseDto(HttpStatus.NO_CONTENT));
     }
@@ -63,9 +63,9 @@ public class EmployController {
      * @return 채용공고 리스트 정보 반환
      */
     @GetMapping
-    public ResponseEntity findEmployList() {
+    public ResponseEntity<CommonResponseDto> findEmployList() {
         List<ResponseEmployInfoDto> employList = employService.findEmploys();
-        return ResponseEntity.status(HttpStatus.OK).body(new CommonResponseDto(HttpStatus.OK, employList));
+        return ResponseEntity.ok(new CommonResponseDto(HttpStatus.OK, employList));
     }
 
     /**
@@ -75,9 +75,7 @@ public class EmployController {
      * @return 조회된 채용공고 정보
      */
     @GetMapping("/{employId}")
-    public ResponseEntity detailsEmploy(@PathVariable Long employId) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new CommonResponseDto(HttpStatus.OK, employService.detailsEmploy(employId))
-        );
+    public ResponseEntity<CommonResponseDto> detailsEmploy(@PathVariable Long employId) {
+        return ResponseEntity.ok(new CommonResponseDto(HttpStatus.OK, employService.detailsEmploy(employId)));
     }
 }
