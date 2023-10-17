@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmployService {
 
-    ResponseSavedEmployDto employInsert(RequestEmployRegistrationDto requestEmployRegistrationDto);
+    void employInsert(RequestEmployRegistrationDto requestEmployRegistrationDto);
 
     ResponseUpdateEmployDto employUpdate(RequestEmployUpdateDto requestEmployUpdateDto);
 
