@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Slf4j
 @Service
 @Transactional
@@ -21,10 +19,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company findById(Long id) {
-        Optional<Company> findCompany = companyRepository.findById(id);
-        if (findCompany.isEmpty()) {
-            throw new NotFoundCompanyException("회사 ID를 확인해주세요.", HttpStatus.BAD_REQUEST);
-        }
-        return findCompany.get();
+        return companyRepository.findById(id).orElseThrow(
+                () -> new NotFoundCompanyException("회사 ID를 확인해주세요.", HttpStatus.BAD_REQUEST)
+        );
     }
 }
