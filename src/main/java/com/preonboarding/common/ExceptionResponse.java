@@ -9,6 +9,9 @@ import org.springframework.validation.FieldError;
 
 import java.sql.Timestamp;
 
+/**
+ * 예외발생 시 공통 응답 DTO
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class EmployUpdateFailException extends CommonException {
 
-    public EmployUpdateFailException(HttpStatus httpStatus) {
-        super(httpStatus);
-    }
-
     public EmployUpdateFailException(String message, HttpStatus httpStatus) {
         super(message, httpStatus);
     }

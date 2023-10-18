@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ResponseExceptionHandler {
 
+    /**
+     * 유효성 검사 예외 핸들러
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ExceptionResponse methodArgumentValidExceptionHandler(MethodArgumentNotValidException e, HttpServletRequest request) {
@@ -23,6 +26,9 @@ public class ResponseExceptionHandler {
         return new ExceptionResponse(HttpStatus.BAD_REQUEST, e.getBindingResult(), request.getRequestURI());
     }
 
+    /**
+     * 유효성 검사 예외 핸들러
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ExceptionResponse httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException e, HttpServletRequest request) {
@@ -30,12 +36,14 @@ public class ResponseExceptionHandler {
         return new ExceptionResponse(HttpStatus.BAD_REQUEST, e.getMessage(), request.getRequestURI());
     }
 
+    /**
+     * repository, service 예외 핸들러
+     */
     @ExceptionHandler(CommonException.class)
     protected ResponseEntity<ExceptionResponse> commonExceptionHandler(CommonException e, HttpServletRequest request) {
         log.error("[commonExceptionHandler] ex", e);
         return new ResponseEntity<>(
-            new ExceptionResponse(e.getHttpStatus(), e.getMessage(), request.getRequestURI()),
-                e.getHttpStatus()
+            new ExceptionResponse(e.getHttpStatus(), e.getMessage(), request.getRequestURI()), e.getHttpStatus()
         );
     }
 }

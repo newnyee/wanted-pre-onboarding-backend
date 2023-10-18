@@ -4,8 +4,12 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import java.sql.Timestamp;
 
+/**
+ * api 공통 응답 DTO
+ */
 @Getter
 public class CommonResponseDto {
+
     private Timestamp timestamp;
 
     private Integer status;

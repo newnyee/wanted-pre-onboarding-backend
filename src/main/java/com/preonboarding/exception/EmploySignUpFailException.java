@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class EmploySignUpFailException extends CommonException {
 
-    public EmploySignUpFailException(HttpStatus httpStatus) {
-        super(httpStatus);
-    }
-
     public EmploySignUpFailException(String message, HttpStatus httpStatus) {
         super(message, httpStatus);
     }
