@@ -60,7 +60,7 @@
 ![image](https://github.com/newnyee/wanted-pre-onboarding-backend/assets/121937711/24bf37cc-b489-4295-9119-d2c30d2f2942)
 
 
-#### 2. [Api 구현 - RESTful Api & Rest Api]
+#### 2. [Api 구현 - RESTful API & Rest API]
 #### 공통 return 객체 → CommonResponseDto : 응답 포멧이 항상 같게 유지
 #### create
 - url : employ
