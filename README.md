@@ -87,7 +87,8 @@
 
 #### 3. Exception 처리
 - 발생 위치와, 원인을 알 수 있게 로깅 한다.
+- 예외 응답 포멧이 항상 같게 ExceptionResponse class를 만든다.
 - CommonException class를 생성하여 Custom Exception들이 상속받게 한 후 Handler에서 관리할 수 있게 한다.
 - CommonException을 상속받은 Exception은 예외 발생시 상태코드(HttpStatus)를 넘겨 exception마다 상태코드를 따로 설정 할 수있게 한다.
-- ExceptionHandler를 통해 넘겨받은 상태코드를 ResposeEntity에 넣어 리턴하며, ExceptionResponse에 넣은 객체를 ReponseEntity 객체의 body에 넣어 리턴한다.
+- ExceptionHandler를 통해 넘겨받은 상태코드와 예외발생 데이터를 넣은 ExceptionResponse 객체를 ReponseEntity 객체에 넣어 리턴한다.
 - @validated를 통한 예외 또한 Custom한 Exception Handler를 통해 처리되게 한다.
