@@ -43,10 +43,10 @@
 ------------
 
 ### 구현 과정
-1. [ERD-Cloud]
+#### 1. [ERD-Cloud]
 ![image](https://github.com/newnyee/wanted-pre-onboarding-backend/assets/121937711/24bf37cc-b489-4295-9119-d2c30d2f2942)
 
-2. [Api 구현 - RESTful Api]
+#### 2. [Api 구현 - RESTful Api]
 #### create
 - url : employ
 - method : post
