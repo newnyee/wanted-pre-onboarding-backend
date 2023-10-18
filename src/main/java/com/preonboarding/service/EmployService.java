@@ -3,6 +3,7 @@ import com.preonboarding.dto.*;
 import com.preonboarding.entity.Company;
 import com.preonboarding.entity.Employ;
 import com.preonboarding.exception.EmploySignUpFailException;
+import com.preonboarding.exception.EmployUpdateFailException;
 import com.preonboarding.exception.FailToDeleteEmployException;
 import com.preonboarding.exception.NotFoundEmployException;
 import com.preonboarding.repository.EmployRepository;
@@ -57,18 +58,22 @@ public class EmployService {
                 .employContent(dto.getEmployContent())
                 .employSkill(dto.getEmploySkill())
                 .build();
+        try {
+            Employ resultUpdate = employRepository.save(updateEmploy);
 
-        Employ resultUpdate = employRepository.save(updateEmploy);
-
-        return ResponseUpdateEmployDto.builder()
-                .employPosition(resultUpdate.getEmployPosition())
-                .employMoneyGift(resultUpdate.getEmployMoneyGift())
-                .employContent(resultUpdate.getEmployContent())
-                .employSkill(resultUpdate.getEmploySkill())
-                .build();
+            return ResponseUpdateEmployDto.builder()
+                    .employPosition(resultUpdate.getEmployPosition())
+                    .employMoneyGift(resultUpdate.getEmployMoneyGift())
+                    .employContent(resultUpdate.getEmployContent())
+                    .employSkill(resultUpdate.getEmploySkill())
+                    .build();
+        } catch (Exception e) {
+            log.error("[EmployService.employUpdate] ex", e);
+            throw new EmployUpdateFailException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    public void delete(RequestDeleteEmployDto dto) {
+    public void employDelete(RequestDeleteEmployDto dto) {
 
         Company findCompany = companyService.findById(dto.getCompanyId());
         findByEmployIdAndCompany(dto.getEmployId(), findCompany);
