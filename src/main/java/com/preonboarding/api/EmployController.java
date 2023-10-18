@@ -51,7 +51,7 @@ public class EmployController {
      */
     @DeleteMapping
     public ResponseEntity delete(@Validated @RequestBody RequestDeleteEmployDto requestDeleteEmployDto) {
-        employService.delete(requestDeleteEmployDto);
+        employService.employDelete(requestDeleteEmployDto);
         return ResponseEntity.noContent().build();
     }
 
