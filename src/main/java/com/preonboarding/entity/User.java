@@ -1,7 +1,6 @@
 package com.preonboarding.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,8 +8,11 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
