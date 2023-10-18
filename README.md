@@ -89,7 +89,7 @@
 - request dto field : employId, companyId
 
 #### 3. Exception 처리
-- 발생 위치와, 원인을 알 수 있게 로깅 한다.
+- 발생 위치와 원인을 알 수 있게 로깅 한다.
 - 예외 응답 포멧이 항상 같게 ExceptionResponse class를 만든다.
 - CommonException class를 생성하여 Custom Exception들이 상속받게 한 후 Handler에서 관리할 수 있게 한다.
 - CommonException을 상속받은 Exception은 예외 발생시 상태코드(HttpStatus)를 넘겨 exception마다 상태코드를 따로 설정 할 수있게 한다.
