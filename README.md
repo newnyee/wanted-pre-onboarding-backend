@@ -53,6 +53,9 @@
 
 
 ### 🛠구현 과정
+키워드 : Java, Spring Boot, MariaDB, JPA, RESTful Api, Rest Api, JSON, ExceptionHandler, logging, Custom Exception, test code, validation
+
+
 #### 1. [ERD-Cloud]
 ![image](https://github.com/newnyee/wanted-pre-onboarding-backend/assets/121937711/24bf37cc-b489-4295-9119-d2c30d2f2942)
 
@@ -92,3 +95,9 @@
 - CommonException을 상속받은 Exception은 예외 발생시 상태코드(HttpStatus)를 넘겨 exception마다 상태코드를 따로 설정 할 수있게 한다.
 - Custom한 ExceptionHandler를 통해 넘겨받은 상태코드와 예외발생 데이터를 넣은 ExceptionResponse 객체를 ReponseEntity 객체에 넣어 리턴한다.
 - @validated를 통한 예외 또한 Custom한 Exception Handler를 통해 처리되게 한다.
+
+#### 4. validation
+- 해당하는 어노테이션을 이용해 유효성 검사 진행
+
+#### 5. Test 코드
+- 각 서비스 마다 해당하는 test 코드 작성
