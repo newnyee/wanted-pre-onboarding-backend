@@ -48,6 +48,7 @@
 
 ### 개체 추출
 ![image](https://github.com/newnyee/wanted-pre-onboarding-backend/assets/121937711/0284ed97-16f1-40c8-9596-4943807919b8)
+
 ------------
 
 
