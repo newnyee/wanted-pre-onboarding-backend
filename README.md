@@ -56,7 +56,7 @@
 키워드 : Java, Spring Boot, MariaDB, JPA, RESTful Api, Rest Api, JSON, ExceptionHandler, logging, Custom Exception, test code, validation
 
 
-#### 1. [ERD-Cloud]
+#### 1. [모델링 - ERD-Cloud]
 ![image](https://github.com/newnyee/wanted-pre-onboarding-backend/assets/121937711/24bf37cc-b489-4295-9119-d2c30d2f2942)
 
 
