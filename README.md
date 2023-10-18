@@ -46,13 +46,13 @@
 ------------
 
 
-### 개체 추출
+### ⚗개체 추출
 ![image](https://github.com/newnyee/wanted-pre-onboarding-backend/assets/121937711/0284ed97-16f1-40c8-9596-4943807919b8)
 
 ------------
 
 
-### 구현 과정
+### 🛠구현 과정
 #### 1. [ERD-Cloud]
 ![image](https://github.com/newnyee/wanted-pre-onboarding-backend/assets/121937711/24bf37cc-b489-4295-9119-d2c30d2f2942)
 
