@@ -20,6 +20,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    // PR TEST
     @Value("${jwt.secret}")
     private String secretKey;
 
